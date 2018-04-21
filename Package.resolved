@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "OraccJSONtoSwift",
+        "repositoryURL": "/Users/Chaitanya/Documents/Programming/OraccJSONtoSwift",
+        "state": {
+          "branch": "advanced",
+          "revision": "ba498060561dec213ad1c21db1466436756c5642",
+          "version": null
+        }
+      },
+      {
+        "package": "ZIPFoundation",
+        "repositoryURL": "https://github.com/weichsel/ZIPFoundation/",
+        "state": {
+          "branch": null,
+          "revision": "937d152a0ecec51b80ceead2358a37f0767673f4",
+          "version": "0.9.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
