@@ -1,5 +1,5 @@
 import Foundation
-import OraccJSONtoSwift
+import CDKSwiftOracc
 
 public class OraccToSwiftInterface: OraccInterface {
     

@@ -7,7 +7,7 @@
 
 import Foundation
 import ZIPFoundation
-import OraccJSONtoSwift
+import CDKSwiftOracc
 
 
 // Class that connects to Github and manages the decoding of texts from archives hosted there.

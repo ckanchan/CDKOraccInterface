@@ -1,5 +1,5 @@
 import XCTest
-import OraccJSONtoSwift
+import CDKSwiftOracc
 @testable import CDKOraccInterface
 
 final class CDKOraccInterfaceTests: XCTestCase {

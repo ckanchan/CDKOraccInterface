@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import OraccJSONtoSwift
+import CDKSwiftOracc
 
 public enum InterfaceType {
     case Github, Oracc

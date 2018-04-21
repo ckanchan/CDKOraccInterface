@@ -2,11 +2,11 @@
   "object": {
     "pins": [
       {
-        "package": "OraccJSONtoSwift",
-        "repositoryURL": "/Users/Chaitanya/Documents/Programming/OraccJSONtoSwift",
+        "package": "CDKSwiftOracc",
+        "repositoryURL": "https://github.com/ckanchan/CDKSwiftOracc",
         "state": {
-          "branch": "advanced",
-          "revision": "ba498060561dec213ad1c21db1466436756c5642",
+          "branch": "master",
+          "revision": "c8908b8cef9b955f072d8023494fcbaa714f0bf2",
           "version": null
         }
       },
