@@ -1,16 +1,29 @@
 //
-//  OraccGithubArchivetoSwift.swift
-//  OraccJSONtoSwift
+//  CDKOraccGithubArchivetoSwift.swift
+//  CDKOraccInterface: Small helper interface between CDKSwiftOracc types
+//  and JSON sources.
+//  Copyright (C) 2018 Chaitanya Kanchan
 //
-//  Created by Chaitanya Kanchan on 01/01/2018.
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
 //
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import Foundation
 import ZIPFoundation
 import CDKSwiftOracc
 
 
-// Class that connects to Github and manages the decoding of texts from archives hosted there.
+/// Class that connects to Github and manages the downloading and decoding of texts from archives hosted there.
+/// - important: This is the only functional way of getting Oracc open data at the moment.
 
 public class OraccGithubToSwiftInterface: OraccInterface {
     
@@ -42,7 +55,7 @@ public class OraccGithubToSwiftInterface: OraccInterface {
     // Oracc directory properties
     
     /// Array of all projects hosted on Oracc. Returns an empty array if it can't reach the website.
-    lazy public var oraccProjects: [OraccProjectEntry] = {
+    lazy public var oraccProjects: [CDKOraccProject] = {
         if let result = try? self.getOraccProjects() {
             return result
         } else {
@@ -51,7 +64,7 @@ public class OraccGithubToSwiftInterface: OraccInterface {
     }()
     
     /// Dictionary of Oracc projects keyed to their Github archive download URLs.
-    lazy var keyedProjectList: [OraccProjectEntry: URL]? = {
+    lazy var keyedProjectList: [CDKOraccProject: URL]? = {
         guard let archiveList = try? getArchiveList() else {return nil}
         return try? loadKeyedProjectList(archiveList)
     }()
@@ -60,6 +73,7 @@ public class OraccGithubToSwiftInterface: OraccInterface {
     //MARK:- Internal functions
     // Oracc directory loading functions
     
+    // TODO :- This uses the Github API without a key!!
     func getArchiveList() throws -> [GithubArchiveEntry] {
         let listURL = URL(string: "https://api.github.com/repos/oracc/json/contents")!
         var data: Data
@@ -78,11 +92,10 @@ public class OraccGithubToSwiftInterface: OraccInterface {
         }
     }
     
-    func loadKeyedProjectList(_ archives: [GithubArchiveEntry]) throws -> [OraccProjectEntry: URL] {
-        
+    func loadKeyedProjectList(_ archives: [GithubArchiveEntry]) throws -> [CDKOraccProject: URL] {
         do {
             let archiveList = try getArchiveList()
-            var keyedProjectList = [OraccProjectEntry: URL]()
+            var keyedProjectList = [CDKOraccProject: URL]()
             
             
             for archive in archiveList {
@@ -100,7 +113,7 @@ public class OraccGithubToSwiftInterface: OraccInterface {
     
     
     // File management functions
-    func downloadJSONArchive(_ vol: OraccProjectEntry) throws -> URL {
+    func downloadJSONArchive(_ vol: CDKOraccProject) throws -> URL {
         let downloadURL = githubArchivePath.appendingPathComponent(vol.githubKey)
         let destinationURL = resourceURL.appendingPathComponent(vol.githubKey)
         
@@ -152,7 +165,7 @@ public class OraccGithubToSwiftInterface: OraccInterface {
     
     
     // MARK: - Public API
-    public lazy var availableVolumes: [OraccProjectEntry] = {
+    public lazy var availableProjects: [CDKOraccProject] = {
         guard let keyedProjectList = self.keyedProjectList else {return []}
         return Array(keyedProjectList.keys)
     }()
@@ -162,8 +175,8 @@ public class OraccGithubToSwiftInterface: OraccInterface {
      - Parameter completion: completion handler which is passed the `OraccProjectEntry` array if and when loaded.
      
      */
-    public func getAvailableVolumes(_ completion: @escaping ([OraccProjectEntry])  -> Void) throws {
-        completion(availableVolumes)
+    public func getAvailableProjects(_ completion: @escaping ([CDKOraccProject])  -> Void) throws {
+        completion(availableProjects)
     }
     
     
@@ -171,12 +184,13 @@ public class OraccGithubToSwiftInterface: OraccInterface {
     
     /**
      Returns a decoded `OraccCatalog` object, from the local file if present, otherwise downloads the archive from Github, extracts the catalogue, and decodes and returns.
+     This method requires network access and should be called on a background thread.
      
      - Parameter volume: An `OraccProjectEntry` from `availableVolumes` representing the desired volume.
      
      */
     
-    public func loadCatalogue(_ volume: OraccProjectEntry) throws -> OraccCatalog {
+    public func loadCatalogue(_ volume: CDKOraccProject) throws -> OraccCatalog {
         let cataloguePath = volume.pathname + "/catalogue.json"
         let localURL = resourceURL.appendingPathComponent(cataloguePath)
         let data: Data
@@ -211,6 +225,15 @@ public class OraccGithubToSwiftInterface: OraccInterface {
             throw error
         }
     }
+    
+    /**
+     Loads a glossary from a downloaded catalogue
+     - Parameter glossary: takes a case of `OraccGlossaryType` describing the language or the subject of the glossary
+     - Parameter inCatalogue: takes an `OraccCatalog`. Required because each Oracc project supplies its own glossary.
+     - Returns: `OraccGlossary`
+     - Throws: `InterfaceError.archiveError.errorReadingArchive` if the data cannot be read; further information is available in the associated value `.swiftError`
+     
+     */
     
     public func loadGlossary(_ glossary: OraccGlossaryType, inCatalogue catalogue: OraccCatalog) throws -> OraccGlossary {
         do {

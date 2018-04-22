@@ -1,10 +1,31 @@
+//
+//  CDKOraccInterface.swift
+//  CDKOraccInterface: Small helper interface between CDKSwiftOracc types
+//  and JSON sources.
+//  Copyright (C) 2018 Chaitanya Kanchan
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import Foundation
 import CDKSwiftOracc
 
+
+/// This is a useless class right now.
 public class OraccToSwiftInterface: OraccInterface {
     
     public let decoder = JSONDecoder()
-    lazy public var oraccProjects: [OraccProjectEntry] = {
+    lazy public var oraccProjects: [CDKOraccProject] = {
         do {
             return try getOraccProjects()
         } catch {
@@ -12,11 +33,11 @@ public class OraccToSwiftInterface: OraccInterface {
         }
     }()
     
-    lazy public var availableVolumes: [OraccProjectEntry] = {
+    lazy public var availableProjects: [CDKOraccProject] = {
         return oraccProjects
     }()
     
-    public func loadCatalogue(_ volume: OraccProjectEntry) throws -> OraccCatalog  {
+    public func loadCatalogue(_ volume: CDKOraccProject) throws -> OraccCatalog  {
         if volume.pathname == "rinap/rinap4" {
             let catalogueURL = URL(string: "http://oracc.museum.upenn.edu/rinap/rinap4/catalogue.json")!
             
@@ -40,8 +61,8 @@ public class OraccToSwiftInterface: OraccInterface {
         throw InterfaceError.Unimplemented("Oracc doesn't provide glossaries right now")
     }
     
-    public func getAvailableVolumes(_ completion: @escaping ([OraccProjectEntry]) -> Void) throws {
-        completion(availableVolumes)
+    public func getAvailableProjects(_ completion: @escaping ([CDKOraccProject]) -> Void) throws {
+        completion(availableProjects)
     }
     
     public func loadText(_ key: String, inCatalogue catalogue: OraccCatalog) throws -> OraccTextEdition {
