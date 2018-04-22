@@ -14,8 +14,5 @@ Documentation is available [here](./Documentation/Reference/README.md)
 
 ## Dependencies
 This package depends on 
- - [CDKSwiftOracc](https://github.com/ckanchan)
+ - [CDKSwiftOracc](https://github.com/ckanchan/CDKSwiftOracc)
  - [ZIPFoundation](https://github.com/weichsel/ZIPFoundation)
- 
- 
- 
