@@ -1,4 +1,4 @@
-# CDKOraccInterface
+# CDKOraccInterface [![Build Status](https://travis-ci.org/ckanchan/CDKOraccInterface.svg?branch=master)](https://travis-ci.org/ckanchan/CDKOraccInterface)
 A simple interface to Oracc open data on the internet.
 
 ## WARNINGS
