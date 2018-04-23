@@ -1,0 +1,4 @@
+language: objective-c
+osx_image: xcode9.3
+install: swift package update
+script: swift test -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.13"
