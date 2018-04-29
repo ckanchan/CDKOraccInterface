@@ -73,9 +73,17 @@ public class OraccGithubToSwiftInterface: OraccInterface {
     //MARK:- Internal functions
     // Oracc directory loading functions
     
-    // TODO :- This uses the Github API without a key!!
+    // Supply key as Env Var (CKOIClientSecret)
     func getArchiveList() throws -> [GithubArchiveEntry] {
-        let listURL = URL(string: "https://api.github.com/repos/oracc/json/contents")!
+        let listURL: URL
+        
+        if let clientSecret = ProcessInfo.processInfo.environment["CDKOIClientSecret"] {
+            listURL = URL(string: "https://api.github.com/repos/oracc/json/contents?client_id=3a115a9358105d547b60&client_secret=\(clientSecret)")!
+        } else {
+            listURL = URL(string: "https://api.github.com/repos/oracc/json/contents")!
+        }
+        
+        
         var data: Data
         do {
             data = try Data(contentsOf: listURL)
