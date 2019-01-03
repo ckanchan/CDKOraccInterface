@@ -178,6 +178,19 @@ public class OraccGithubToSwiftInterface: OraccInterface {
         return Array(keyedProjectList.keys)
     }()
     
+    public func getOraccProjects() throws -> [CDKOraccProject] {
+        let githubProjectListURL = URL(string: "https://raw.githubusercontent.com/ckanchan/json/master/projectlist.json")!
+        
+        guard let listData = try? Data(contentsOf: githubProjectListURL) else {throw InterfaceError.cannotSetResourceURL}
+        
+        do {
+            let projectList = try decoder.decode(CDKOraccProjectList.self, from: listData)
+            return projectList.projects
+        } catch {
+            throw InterfaceError.JSONError.unableToDecode(swiftError: error.localizedDescription)
+        }
+    }
+    
     /** Returns a list of all the volume available for download from Github.
      
      - Parameter completion: completion handler which is passed the `OraccProjectEntry` array if and when loaded.
@@ -300,7 +313,7 @@ public class OraccGithubToSwiftInterface: OraccInterface {
         }
         
         do {
-            return try loadTextFromLocalFile(project: project, key: textEntry.id)
+            return try loadTextFromLocalFile(project: project, key: textEntry.id.description)
         } catch {
             throw error
         }
