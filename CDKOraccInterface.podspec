@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   
   s.name         = "CDKOraccInterface"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A simple interface to Oracc open data on the internet"
   
   
