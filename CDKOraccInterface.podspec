@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   
   s.name         = "CDKOraccInterface"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "A simple interface to Oracc open data on the internet"
   
   
@@ -35,6 +35,6 @@ Pod::Spec.new do |s|
   
   s.dependency "CDKSwiftOracc"
   s.dependency "ZIPFoundation"
-  s.swift_version = "4.1"
+  s.swift_version = "5.0"
   
 end
