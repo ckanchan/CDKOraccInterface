@@ -20,7 +20,7 @@
 import Foundation
 
 /// Structure representing a single Oracc project. Used to access Oracc Catalog listings, and subsequently glossaries and text editions.
-public struct CDKOraccProject: Decodable {
+public struct CDKOraccProject: Decodable, Equatable, Hashable {
     
     /// Relative path to the project root
     public let pathname: String
@@ -38,16 +38,6 @@ public struct CDKOraccProject: Decodable {
     /// Relative path to the Github ZIP archive
     var githubKey: String {
         return pathname.replacingOccurrences(of: "/", with: "-").appending(".zip")
-    }
-}
-
-extension CDKOraccProject: Equatable, Hashable {
-    public var hashValue: Int {
-        return pathname.hashValue ^ abbrev.hashValue ^ name.hashValue ^ blurb.hashValue
-    }
-    
-    public static func ==(lhs: CDKOraccProject, rhs: CDKOraccProject) -> Bool {
-        return lhs.pathname == rhs.pathname && lhs.blurb == rhs.blurb
     }
 }
 

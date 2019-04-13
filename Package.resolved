@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/ckanchan/CDKSwiftOracc",
         "state": {
           "branch": "master",
-          "revision": "936bc5bd666a37c8fe458b8a370335d38983edcf",
+          "revision": "3d91c1d8c6f758c454cbf9ed36b14d495c374e2f",
           "version": null
         }
       },
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/weichsel/ZIPFoundation/",
         "state": {
           "branch": null,
-          "revision": "b5c53bef2deb7b20659b03b1223f0942599e5c41",
-          "version": "0.9.6"
+          "revision": "edbeaa39b426e54702194b0a601342322f01e400",
+          "version": "0.9.9"
         }
       }
     ]
