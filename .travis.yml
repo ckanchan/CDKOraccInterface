@@ -1,8 +1,0 @@
-language: objective-c
-osx_image: xcode10.1
-script:
-- swift package clean
-- swift test -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.13"
-env:
-  matrix:
-    secure: ZoKnZoiH/rZpjJeQvKeiobsIneLfCkajfPVt9r5MHtLhPrALqTHJ8wrmXk+012AE9kIo0047hEgSdHDoJQBBLidqJ0ctsFIBmoY4knwzIG962zec7KCLnnIryYJVvaK/kUQQ88Nb+plcI9WyHFuM4Gz9TM3aUQ3c6kt2xB0lB6+VWm+8OG8ati0MGPFq6H9qMKSHw33sAb2ApCDRMmCENMzf8xeuw/SNE0Aie8mc/LE5ww1TRSBAClftuhdxm3bY5PGq8vW8QaA5A9zMj6+cpdezKN7cGqU8ZTwWpDtpOiRfQIMgSAN0fUzomWQNDXT5pc+URwKUnxJaW8xYB4DQJdeLKIogbF/9UZgEwF2xlGcAoQ+QKdcBzDpO0+tsW4GL8T+cRMcLqcN51MSSeEoqkCMiazJK/GPPcDbqISgYsHuXDZjMcwyykTtnI6lnVj8U7d15NlQ6YVc2a7M50qRFBJuOSAzP6U2SDVCcVqY8chgdP0P9M+VILVp0XHLEbCatNzvhThR3g61cQI6I1gcuQlSejAfnGZfGcejC7Fo+wiCnTi8oSmKEYFAfLgJ+eTS7rtSeRAX+AKO43/3pBLbvvccYOQ0oTmGS6dT67QqSnF5XWQGKTWlkWFFAx8ji17seOOlVq5ziQBiVRak0r3i6FAsqgkJq+wE/cBR6dd8k9tc=
